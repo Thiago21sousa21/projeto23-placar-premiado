@@ -37,6 +37,12 @@ model Game {
     @@map("games")
 }
 
+enum BetStatus {
+    PENDING
+    LOST
+    WON
+}
+
 model Bet {
     id            Int      @id @default(autoincrement()) // id da aposta
     homeTeamScore Int // número de gols do time da casa apostado, ex 2
@@ -44,7 +50,7 @@ model Bet {
     amountBet     Int // valor apostado, representado em centavos, ex 1000 (R$ 10,00)
     gameId        Int // id do jogo em que foi feita a aposta
     participantId Int // id do participante que fez a aposta
-    status        String // estado atual da aposta, podendo ser PENDING (jogo ainda não encerrado), WON (acertou o placar final do jogo) ou LOST (errou o placar final do jogo)
+    status        BetStatus @default(PENDING) // estado atual da aposta, podendo ser PENDING (jogo ainda não encerrado), WON (acertou o placar final do jogo) ou LOST (errou o placar final do jogo)
     amountWon     Int? // valor total ganho na aposta ou nulo enquanto a aposta ainda está PENDING
     createdAt     DateTime @default(now())
     updatedAt     DateTime @updatedAt()

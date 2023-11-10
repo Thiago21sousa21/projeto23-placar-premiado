@@ -4,7 +4,7 @@ import httpStatus from 'http-status';
 import { clearDb } from '../helpers';
 import { NewParticipant } from 'protocols/participants-protocols';
 import { faker } from '@faker-js/faker';
-
+import {participantInput} from '../factories'
 
 
 const api = supertest(app);
@@ -17,10 +17,8 @@ describe("post /participants integration route", () => {
     })
 
     it('should return 201', async () => {
-        const newParticipant: NewParticipant = {
-            name: faker.person.firstName(),
-            balance: faker.number.int({ min: 1000, max: 99999 })
-        }
+        
+        const newParticipant:NewParticipant = participantInput() ;
 
         const { status, body } = await api.post('/participants').send(newParticipant)
         expect(status).toBe(httpStatus.CREATED);
@@ -51,7 +49,6 @@ describe("post /participants integration route", () => {
             }
 
             const result = await api.post('/participants').send(newParticipant)
-            console.log(result)
             expect(result.status).toBe(httpStatus.UNPROCESSABLE_ENTITY);
         })
     })
