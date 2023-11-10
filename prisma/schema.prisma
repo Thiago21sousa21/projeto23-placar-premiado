@@ -2,56 +2,55 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
-
 
 model Participant {
-  id Int @id @default(autoincrement())
-	name String
-	balance Int // saldo atual do participante, representado em centavos, ex: 1000 (R$ 10,00)
-  createdAt DateTime @default(now()) // data e hora da criação do participante, ex: "2023-09-27T19:22:50.503Z"
-	updatedAt DateTime @updatedAt() // mesmo acima para data da última atualização
+    id        Int      @id @default(autoincrement())
+    name      String
+    balance   Int // saldo atual do participante, representado em centavos, ex: 1000 (R$ 10,00)
+    createdAt DateTime @default(now()) // data e hora da criação do participante, ex: "2023-09-27T19:22:50.503Z"
+    updatedAt DateTime @updatedAt() // mesmo acima para data da última atualização
 
-  bet Bet[]
+    bet Bet[]
 
-  @@map("participants")
+    @@map("participants")
 }
 
-model Game {  
-	id Int @id @default(autoincrement())// id do jogo
-	homeTeamName String // nome do time da casa, ex "Flamengo"
-	awayTeamName String // nome do time visitante, ex "Fluminense"
-	homeTeamScore Int // gols do time da casa, ex 3
-	awayTeamScore Int // gols do time visitante, ex 1
-	isFinished Boolean // true se o jogo já tiver sido encerrado, false caso contrário
-	createdAt DateTime @default(now())
-	updatedAt DateTime @updatedAt()
+model Game {
+    id            Int      @id @default(autoincrement()) // id do jogo
+    homeTeamName  String // nome do time da casa, ex "Flamengo"
+    awayTeamName  String // nome do time visitante, ex "Fluminense"
+    homeTeamScore Int      @default(0) // gols do time da casa, ex 3
+    awayTeamScore Int      @default(0) // gols do time visitante, ex 1
+    isFinished    Boolean  @default(false) // true se o jogo já tiver sido encerrado, false caso contrário
+    createdAt     DateTime @default(now())
+    updatedAt     DateTime @updatedAt()
 
-  bet Bet[]
+    bet Bet[]
 
-  @@map("games")
+    @@map("games")
 }
 
 model Bet {
-	id Int @id @default(autoincrement()) // id da aposta
-	homeTeamScore Int // número de gols do time da casa apostado, ex 2
-	awayTeamScore Int // número de gols do time visitante apostado, ex 3
-	amountBet Int // valor apostado, representado em centavos, ex 1000 (R$ 10,00)
-	gameId Int // id do jogo em que foi feita a aposta
-	participantId Int // id do participante que fez a aposta
-	status String // estado atual da aposta, podendo ser PENDING (jogo ainda não encerrado), WON (acertou o placar final do jogo) ou LOST (errou o placar final do jogo)
-	amountWon Int? // valor total ganho na aposta ou nulo enquanto a aposta ainda está PENDING
-  createdAt DateTime @default(now())
-	updatedAt DateTime @updatedAt()
+    id            Int      @id @default(autoincrement()) // id da aposta
+    homeTeamScore Int // número de gols do time da casa apostado, ex 2
+    awayTeamScore Int // número de gols do time visitante apostado, ex 3
+    amountBet     Int // valor apostado, representado em centavos, ex 1000 (R$ 10,00)
+    gameId        Int // id do jogo em que foi feita a aposta
+    participantId Int // id do participante que fez a aposta
+    status        String // estado atual da aposta, podendo ser PENDING (jogo ainda não encerrado), WON (acertou o placar final do jogo) ou LOST (errou o placar final do jogo)
+    amountWon     Int? // valor total ganho na aposta ou nulo enquanto a aposta ainda está PENDING
+    createdAt     DateTime @default(now())
+    updatedAt     DateTime @updatedAt()
 
-  game Game @relation(fields: [gameId], references: [id])
-  participant Participant @relation(fields: [participantId], references: [id])
+    game        Game        @relation(fields: [gameId], references: [id])
+    participant Participant @relation(fields: [participantId], references: [id])
 
-  @@map("bets")
+    @@map("bets")
 }

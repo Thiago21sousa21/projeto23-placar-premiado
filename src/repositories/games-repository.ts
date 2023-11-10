@@ -1,4 +1,5 @@
-
+import prisma from 'database'
+import {NewGame} from '../protocols'
 
 export async function getGames (){
 //     - Retorna todos os jogos cadastrados.
@@ -21,31 +22,9 @@ export async function getGames (){
 //     ```
 }
 
-export async function createGame (){
-//     - Cria um novo jogo, com placar inicial 0x0 e marcado como não finalizado.
-// - Entrada: nome do time da casa e do time visitante.
-    
-//     ```tsx
-//     {
-//     	homeTeamName: string;
-//     	awayTeamName: string;
-//     }
-//     ```
-    
-// - Saída: o objeto do jogo criado.
-    
-//     ```tsx
-//     {
-//     	id: number;
-//     	createdAt: string;
-//     	updatedAt: string;
-//     	homeTeamName: string;
-//     	awayTeamName: string;
-//     	homeTeamScore: number; // inicialmente 0
-//     	awayTeamScore: number; // inicialmente 0
-//     	isFinished: boolean; // inicialmente false
-//     }
-//     ```
+export async function createGame (newGame:NewGame){
+    const result  = await prisma.game.create({data:newGame})
+    return result
 }
 
 export async function finishGame (){
@@ -104,5 +83,7 @@ export async function getGameWithBet (){
 //     }
 //     ```
 }
+
+export * as gamesRepository from  './games-repository'
 
 

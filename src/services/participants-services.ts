@@ -1,4 +1,4 @@
-import { participantsRepository } from 'repositories'
+import { participantsRepository } from '../repositories/participants-repository'
 import {NewParticipant} from './../protocols/participants-protocols'
 
 

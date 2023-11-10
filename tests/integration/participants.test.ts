@@ -10,20 +10,19 @@ import { faker } from '@faker-js/faker';
 const api = supertest(app);
 
 
-describe("participants integration route", ()=>{
+describe("post /participants integration route", () => {
 
-    beforeEach(async()=>{
+    beforeEach(async () => {
         await clearDb()
     })
 
-    it('should return 201', async()=>{
-        const newParticipant:NewParticipant = {
-            name:faker.person.firstName(),
-            balance: faker.number.int({min:1000, max:99999})
+    it('should return 201', async () => {
+        const newParticipant: NewParticipant = {
+            name: faker.person.firstName(),
+            balance: faker.number.int({ min: 1000, max: 99999 })
         }
 
-        const {status, body} = await api.post('/participants' ).send(newParticipant)
-        console.log(body)
+        const { status, body } = await api.post('/participants').send(newParticipant)
         expect(status).toBe(httpStatus.CREATED);
         expect(body).toEqual(expect.objectContaining({
             id: expect.any(Number),
@@ -34,28 +33,27 @@ describe("participants integration route", ()=>{
         }))
     })
 
-    describe('should return 422',()=>{
+    describe('should return 422', () => {
 
-    it('the balance must be greater than R$10.00', async()=>{
-        const newParticipant = {
-            name:faker.person.firstName(),
-            balance: faker.number.int({ max:999})
-        }
+        it('the balance must be greater than R$10.00', async () => {
+            const newParticipant = {
+                name: faker.person.firstName(),
+                balance: faker.number.int({ max: 999 })
+            }
 
-        const result = await api.post('/participants' ).send(newParticipant)
-        console.log(result)
-        expect(result.status).toBe(httpStatus.UNPROCESSABLE_ENTITY);
-    })
+            const result = await api.post('/participants').send(newParticipant)
+            expect(result.status).toBe(httpStatus.UNPROCESSABLE_ENTITY);
+        })
 
-    it('the name and balance fields must be filled in', async()=>{
-        const newParticipant = {
-            name:faker.person.firstName()
-        }
+        it('the name and balance fields must be filled in', async () => {
+            const newParticipant = {
+                name: faker.person.firstName()
+            }
 
-        const result = await api.post('/participants' ).send(newParticipant)
-        console.log(result)
-        expect(result.status).toBe(httpStatus.UNPROCESSABLE_ENTITY);
-    })
+            const result = await api.post('/participants').send(newParticipant)
+            console.log(result)
+            expect(result.status).toBe(httpStatus.UNPROCESSABLE_ENTITY);
+        })
     })
 
 })
