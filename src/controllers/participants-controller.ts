@@ -9,4 +9,4 @@ export async function createParticipant (req: Request, res: Response){
     res.status(httpStatus.CREATED).send(result)
 }
 
-export * as participantsControllers from './participants-controller';
+export *  from './participants-controller';
