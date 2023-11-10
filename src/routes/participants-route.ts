@@ -6,6 +6,7 @@ import {participantSchema} from "../schemas/participants-schemas"
 
 const participantsRouter = Router()
 
-participantsRouter.post('/', validateBody(participantSchema), createParticipant)
+participantsRouter
+    .post('/', validateBody(participantSchema), createParticipant)
 
 export default participantsRouter;

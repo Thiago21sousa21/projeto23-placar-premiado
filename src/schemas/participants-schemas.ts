@@ -1,5 +1,5 @@
 import Joi from "joi";
-import {NewParticipant} from '../protocols/participants-protocols'
+import {NewParticipant} from '../protocols'
 
 export const participantSchema = Joi.object<NewParticipant>({
     name: Joi.string().required(),

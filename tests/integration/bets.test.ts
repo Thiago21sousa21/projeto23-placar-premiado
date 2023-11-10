@@ -4,7 +4,8 @@ import httpStatus from 'http-status';
 import { clearDb } from '../helpers';
 import {participantsRepository} from '../../src/repositories/participants-repository'
 import {gamesRepository} from '../../src/repositories/games-repository'
-import {participantInput, gameInput} from '../factories'
+
+import {participantInput, gameInput, testBet} from '../factories'
 
 
 const api = supertest(app);
@@ -26,8 +27,9 @@ describe('post /bets', ()=>{
             const testGame = await gamesRepository.createGame(gameInput())
 
             //outra de criar uma aposta usando as informações dos primeiros
+            const bet = testBet(testParticipant, testGame)
            
-            const result = await api.post('/bets').send()
+            const result = await api.post('/bets').send(bet)
             
             expect(result.status).toBe(httpStatus.CREATED)
         })
