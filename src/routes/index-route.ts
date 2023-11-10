@@ -6,11 +6,10 @@ import betsRouter from "./bets-route"
 
 const indexRoute = Router();
 
-indexRoute.use(
-    healthRouter, 
-    betsRouter, 
-    participantsRouter, 
-    gamesRouter
-)
+indexRoute
+    .use('/health',healthRouter)
+    .use('/participants',participantsRouter)
+    .use('/games',gamesRouter) 
+    .use('/bets',betsRouter)
 
 export default indexRoute;
