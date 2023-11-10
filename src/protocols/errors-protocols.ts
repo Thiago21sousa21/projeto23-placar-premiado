@@ -1,5 +1,5 @@
 export type PredictedError = {
     type: string;
-    message: string;
+    message: string | string[];
     status: number;
 }

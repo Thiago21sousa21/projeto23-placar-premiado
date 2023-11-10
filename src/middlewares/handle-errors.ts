@@ -1,7 +1,7 @@
 import httpStatus from "http-status"
 import errorsList from "../utils/error-list"
 import { NextFunction, Request, Response } from "express"
-import {PredictedError} from '../protocols.ts/errors-protocols'
+import {PredictedError} from '../protocols/errors-protocols'
 
 
 const handleErrors = (error: PredictedError , _req: Request, res:Response, _next: NextFunction)=>{

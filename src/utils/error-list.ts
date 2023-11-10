@@ -16,7 +16,7 @@ const errorsList = {
             status: httpStatus.NOT_FOUND
         }
     },
-    schema: (errors:string[]) => {
+    schema: (errors:string[]|string) => {
         return {
             type: 'schema',
             message: errors,
@@ -28,20 +28,6 @@ const errorsList = {
             type: 'internal',
             message: 'sorry, something went wrong',
             status: httpStatus.INTERNAL_SERVER_ERROR
-        }
-    },
-    equalCities: () => {
-        return {
-            type: 'equalCities',
-            message: 'origin and destination cannot be the same',
-            status: httpStatus.CONFLICT
-        }
-    },
-    invalidDate: () => {
-        return {
-            type: 'invalidDate',
-            message: 'the flight date needs to be greater than the current date',
-            status: httpStatus.UNPROCESSABLE_ENTITY
         }
     }
 
