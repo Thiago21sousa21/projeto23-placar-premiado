@@ -62,7 +62,6 @@ export async function createParticipant (newParticpant:NewParticipant){
     return result
 }
 
-export * as participantsRepository from './participants-repository'
 
 
 

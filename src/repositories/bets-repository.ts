@@ -31,5 +31,3 @@ export async function updateStatusBet (betId:number, status:BetStatus){
     return result
 }
 
-
-export * as betsRepository from './bets-repository'

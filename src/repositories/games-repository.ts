@@ -49,6 +49,5 @@ export async function getGameWithBet (id:number){
     return result;
 }
 
-export * as gamesRepository from  './games-repository'
 
 

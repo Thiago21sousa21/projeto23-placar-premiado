@@ -1,6 +1,6 @@
-import {gamesRepository} from '../repositories/games-repository'
-import {betsRepository} from '../repositories/bets-repository'
-import {participantsRepository} from '../repositories/participants-repository'
+import {gamesRepository} from '../repositories'
+import {betsRepository} from '../repositories'
+import {participantsRepository} from '../repositories'
 
 import {NewGame, FinalScore, Winner, Loser, WinnersAndLosts} from '../protocols'
 import errorsList from '../utils/error-list'
@@ -106,5 +106,3 @@ export async function getGames (){
     const result  = await gamesRepository.getGames()
     return result
 }
-
-export * as gameServices from './games-services'

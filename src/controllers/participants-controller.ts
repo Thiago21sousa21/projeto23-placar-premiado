@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import {NewParticipant} from './../protocols/participants-protocols'
 import httpStatus from 'http-status';
-import {participantsServices} from '../services/participants-services'
+import {participantsServices} from '../services'
 
 export async function createParticipant (req: Request, res: Response){
     const newParticpant: NewParticipant = req.body;

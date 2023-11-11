@@ -1,7 +1,7 @@
 import { NewBet } from "../protocols";
-import {betsRepository} from '../repositories/bets-repository'
-import {gamesRepository} from '../repositories/games-repository'
-import {participantsRepository} from '../repositories/participants-repository'
+import {betsRepository} from '../repositories'
+import {gamesRepository} from '../repositories'
+import {participantsRepository} from '../repositories'
 import errorsList from "../utils/error-list";
 
 export async function creatBet(newBet:NewBet){
@@ -26,5 +26,3 @@ export async function creatBet(newBet:NewBet){
     const result = await betsRepository.creatBet(newBet)
     return result
 }
-
-export * as betsServices from './bets-services'

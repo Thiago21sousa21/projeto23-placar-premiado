@@ -2,8 +2,8 @@ import supertest from 'supertest'
 import app from '../../src/app'
 import httpStatus from 'http-status';
 import { clearDb } from '../helpers';
-import {participantsRepository} from '../../src/repositories/participants-repository'
-import {gamesRepository} from '../../src/repositories/games-repository'
+import {participantsRepository} from '../../src/repositories'
+import {gamesRepository} from '../../src/repositories'
 
 import {participantInput, gameInput, testBet} from '../factories'
 

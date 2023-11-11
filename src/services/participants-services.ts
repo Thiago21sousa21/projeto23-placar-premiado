@@ -1,4 +1,4 @@
-import { participantsRepository } from '../repositories/participants-repository'
+import { participantsRepository } from '../repositories'
 import {NewParticipant} from './../protocols/participants-protocols'
 
 
@@ -12,5 +12,3 @@ export async function getParticipants (){
     return result
 }
 
-
-export * as participantsServices from './participants-services';
