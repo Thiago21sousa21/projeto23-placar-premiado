@@ -17,21 +17,8 @@ import { NewParticipant } from "protocols/participants-protocols";
 // }
 
 export async function getParticipants () {
-//   - Retorna todos os participantes e seus respectivos saldos.
-// - Saída: array de todos os participantes.
-    
-//     ```tsx
-//     [
-//     	{
-//     		id: number;
-//     		createdAt: string;
-//     		updatedAt: string;
-//     		name: string;
-//     		balance: number; // representado em centavos, ou seja, R$ 10,00 -> 1000
-//     	}, 
-//     	{...}
-//     ]
-//     ```
+    const result = await prisma.participant.findMany({})
+    return result
 }
 
 export async function getParticipantById(id:number){

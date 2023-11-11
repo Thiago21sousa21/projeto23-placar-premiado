@@ -9,4 +9,9 @@ export async function createParticipant (req: Request, res: Response){
     res.status(httpStatus.CREATED).send(result)
 }
 
+export async function getParticipants (req: Request, res: Response){
+    const result = await participantsServices.getParticipants()
+    res.status(httpStatus.OK).send(result)
+}
+
 export *  from './participants-controller';

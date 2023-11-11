@@ -7,4 +7,10 @@ export async function createParticipant (newParticpant: NewParticipant){
     return result
 }
 
+export async function getParticipants (){
+    const result = await participantsRepository.getParticipants()
+    return result
+}
+
+
 export * as participantsServices from './participants-services';
