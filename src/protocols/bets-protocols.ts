@@ -4,12 +4,14 @@ import { Bet } from "@prisma/client"
 export type Winner ={
     id: number,
     gain: number,
-    amountBet: number
+    amountBet: number,
+    betId: number
 }
 
 export type Loser ={
     id: number,
-    gain: number
+    gain: number,
+    betId: number
 }
 
 export type WinnersAndLosts = {

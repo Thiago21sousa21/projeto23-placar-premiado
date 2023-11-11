@@ -7,8 +7,9 @@ const gamesRouter = Router()
 
 gamesRouter
     .post('/',validateBody(gameSchema) ,createGame)
-    .post('/:id/finish',validateBody(finalScoreSchema), validateParams(paramsIdSchema), finishGame)
     .get('/', getGames)
     .get('/:id', getGameWithBet)
+    .post('/:id/finish',validateBody(finalScoreSchema), finishGame)
 
 export default gamesRouter;
+//, validateParams(paramsIdSchema)

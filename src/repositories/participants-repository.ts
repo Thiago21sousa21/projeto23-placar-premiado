@@ -27,18 +27,27 @@ export async function getParticipantById(id:number){
 }
 
 export  async function incrementBalance (participant: Winner | Loser){
-    const result = await prisma.participant.update({
-        where:{id: participant.id},
-        data:{
-            balance:{
-                increment:participant.gain
+    const result = await prisma.$transaction([
+        prisma.participant.update({
+            where:{id: participant.id},
+            data:{
+                balance:{
+                    increment:participant.gain
+                }
             }
-        }
-    })
+        }),
+        prisma.bet.update({
+            where:{
+                id:participant.betId
+            },
+            data:{
+                amountWon: participant.gain
+            }
+        })
+    ])
 } 
 
-export async function updateBalanceById(idParticipant:number, balance:number, amountBet: number){
-    const newBalance = balance - amountBet;
+export async function updateBalanceById(idParticipant:number, newBalance:number){
     const result = await prisma.participant.update({
         where:{id:idParticipant},
         data:{

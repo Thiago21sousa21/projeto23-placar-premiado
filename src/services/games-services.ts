@@ -31,13 +31,15 @@ async function separateWonLost(resultGame: Game, allBets: Bet[]){
             winners.push({
                 id: allBets[i].participantId,
                 gain: undefined,
-                amountBet
+                amountBet,
+                betId:allBets[i].id
             })
             await betsRepository.updateStatusBet(allBets[i].id, 'WON')
         } else{
             losts.push({
                 id: allBets[i].participantId,
-                gain: 0
+                gain: 0,
+                betId:allBets[i].id
             })
             await betsRepository.updateStatusBet(allBets[i].id, 'LOST')
         }
@@ -67,22 +69,21 @@ async function addUpTheValues(separateBettors:WinnersAndLosts){
     }
     
     for(let i = 0; i < losts.length ; i++){
-        const participant = winners[i];
+        const participant = losts[i];
         await participantsRepository.incrementBalance(participant)
     }
 }
 
 export async function finishGame (theChange:FinalScore ){
-
+    
     //verificar se o jogo realmente existe
     const game = await gamesRepository.getGameById(theChange.id)
     if(!game)throw errorsList.notFound('game')
     //verifica se já esta finalizado
-    if(game.isFinished) throw errorsList.toFinishFinishedGame()
+if(game.isFinished) throw errorsList.toFinishFinishedGame()
 
-    //altera o placar e finaliza
+//altera o placar e finaliza
     const changedGame  = await gamesRepository.finishGame(theChange)
-
     //pegar todas as apostas que envolvem esse jogo
     const  allBets = await betsRepository.getBetAllBetsOfOneId(theChange.id)
 
@@ -96,7 +97,8 @@ export async function finishGame (theChange:FinalScore ){
 }
 
 export async function getGameWithBet (id:number){
-    const result  = await gamesRepository.getGameWithBet(id)
+    const result  = await gamesRepository.getGameWithBet(id);
+    if(!result)throw errorsList.notFound('game');
     return result
 }
 
