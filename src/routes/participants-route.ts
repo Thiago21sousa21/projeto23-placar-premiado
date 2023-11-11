@@ -1,6 +1,6 @@
 import { Router, Request } from "express";
 import {createParticipant, getParticipants} from '../controllers/participants-controller'
-import { validateBody } from "middlewares/validation-inputs";
+import { validateBody } from "../middlewares/validation-inputs";
 import {participantSchema} from "../schemas/participants-schemas"
 
 

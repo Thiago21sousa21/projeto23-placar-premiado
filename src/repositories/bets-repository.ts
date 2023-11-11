@@ -1,4 +1,4 @@
-import prisma from "database";
+import prisma from "../database";
 import { NewBet } from "../protocols";
 import { BetStatus } from "@prisma/client";
 

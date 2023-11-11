@@ -3,7 +3,7 @@ import {betsRepository} from '../repositories/bets-repository'
 import {participantsRepository} from '../repositories/participants-repository'
 
 import {NewGame, FinalScore, Winner, Loser, WinnersAndLosts} from '../protocols'
-import errorsList from 'utils/error-list'
+import errorsList from '../utils/error-list'
 import { Bet, Game } from '@prisma/client'
 
 export async function createGame (newGame:NewGame){

@@ -1,4 +1,4 @@
-import prisma from 'database'
+import prisma from '../database'
 import {NewGame, FinalScore} from '../protocols'
 
 export async function getGames (){
