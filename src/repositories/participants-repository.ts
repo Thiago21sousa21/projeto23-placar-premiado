@@ -1,4 +1,5 @@
 
+import { Loser, Winner } from "protocols";
 import prisma from "../database";
 import { NewParticipant } from "protocols/participants-protocols";
 
@@ -31,6 +32,33 @@ export async function getParticipants () {
 //     	{...}
 //     ]
 //     ```
+}
+
+export async function getParticipantById(id:number){
+    const result = await prisma.participant.findUnique({where:{id}})
+    return result
+}
+
+export  async function incrementBalance (participant: Winner | Loser){
+    const result = await prisma.participant.update({
+        where:{id: participant.id},
+        data:{
+            balance:{
+                increment:participant.gain
+            }
+        }
+    })
+} 
+
+export async function updateBalanceById(idParticipant:number, balance:number, amountBet: number){
+    const newBalance = balance - amountBet;
+    const result = await prisma.participant.update({
+        where:{id:idParticipant},
+        data:{
+            balance: newBalance
+        }
+    })
+    return result.balance
 }
 
 export async function createParticipant (newParticpant:NewParticipant){

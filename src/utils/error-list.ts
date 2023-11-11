@@ -43,7 +43,15 @@ const errorsList = {
             message: 'It is not possible to place the bet as the game has already been completed',
             status: httpStatus.CONFLICT
         }
+    },
+    toFinishFinishedGame: () => {
+        return {
+            type: 'toFinishFinishedGame',
+            message: ' It is not possible to finish a finished game',
+            status: httpStatus.CONFLICT
+        }
     }
+   
 
 
 }

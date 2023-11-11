@@ -1,5 +1,5 @@
 import prisma from 'database'
-import {NewGame} from '../protocols'
+import {NewGame, FinalScore} from '../protocols'
 
 export async function getGames (){
 //     - Retorna todos os jogos cadastrados.
@@ -27,31 +27,24 @@ export async function createGame (newGame:NewGame){
     return result
 }
 
-export async function finishGame (){
-//     - Finaliza um jogo e consequentemente atualiza todas as apostas atreladas a ele, calculando o valor ganho em cada uma e atualizando o saldo dos participantes ganhadores.
-// - Entrada: placar final do jogo.
-    
-//     ```tsx
-//     {
-//     	homeTeamScore: number;
-//     	awayTeamScore: number;
-//     }
-//     ```
-    
-// - Saída: o objeto do jogo atualizado.
-    
-//     ```tsx
-//     {
-//     	id: number;
-//     	createdAt: string;
-//     	updatedAt: string;
-//     	homeTeamName: string;
-//     	awayTeamName: string;
-//     	homeTeamScore: number;
-//     	awayTeamScore: number;
-//     	isFinished: boolean;
-//     }
-//     ```
+export async function getGameById (id: number){
+    const result = await prisma.game.findUnique({where:{id}})
+    return result
+}
+
+export async function finishGame (theChange: FinalScore){
+
+    const result = await prisma.game.update({
+        where:{
+            id:theChange.id
+        },
+        data:{
+            awayTeamScore: theChange.awayTeamScore,
+            homeTeamScore: theChange.homeTeamScore,
+            isFinished: true
+        }
+    })
+    return result
 }
 
 export async function getGameWithBet (){

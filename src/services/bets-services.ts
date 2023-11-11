@@ -19,7 +19,7 @@ export async function creatBet(newBet:NewBet){
 
     // - Ao criar uma aposta, o valor da aposta deve ser subtraído imediatamente do saldo do participante.
     const newBalance = await updateBalanceById(participantId, amountBet, balance)
-    if(!newBalance)throw errorsList.internal()
+    if(!newBalance && !(newBalance===0))throw errorsList.internal()
 
     const result = await betsRepository.creatBet(newBet)
     return result

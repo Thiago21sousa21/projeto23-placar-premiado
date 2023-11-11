@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import httpStatus from 'http-status';
-import {NewGame} from '../protocols'
+import {NewGame, ParamsGameType, FinalScore, FinalScoreInput} from '../protocols'
 import {gameServices} from '../services/games-services'
 
 export async function createGame (req: Request, res: Response){
@@ -8,3 +8,12 @@ export async function createGame (req: Request, res: Response){
     const result = await gameServices.createGame(newGame)
     res.status(httpStatus.CREATED).send(result)
 }
+
+export async function finishGame (req: Request, res: Response){
+    const theChangeInput:FinalScoreInput  = req.body;
+    let theParams = req.params as ParamsGameType;    
+    const theChange:FinalScore = {...theChangeInput , id:Number(theParams.id)}
+    const result = await gameServices.finishGame(theChange)
+    res.status(httpStatus.OK).send(result)
+}
+
