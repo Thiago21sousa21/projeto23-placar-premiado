@@ -29,7 +29,22 @@ const errorsList = {
             message: 'sorry, something went wrong',
             status: httpStatus.INTERNAL_SERVER_ERROR
         }
+    },
+    insufficientBalance: () => {
+        return {
+            type: 'insufficientBalance',
+            message: 'sorry, insufficient balance',
+            status: httpStatus.PAYMENT_REQUIRED
+        }
+    },
+    gameAlreadCompleted: () => {
+        return {
+            type: 'gameAlreadCompleted',
+            message: 'It is not possible to place the bet as the game has already been completed',
+            status: httpStatus.CONFLICT
+        }
     }
+
 
 }
 export default errorsList;
