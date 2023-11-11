@@ -22,3 +22,9 @@ export async function getGames (req: Request, res: Response){
     res.status(httpStatus.OK).send(result)
 }
 
+export async function getGameWithBet (req: Request, res: Response){
+    const id:number = Number(req.params.id)
+    const result = await gameServices.getGameWithBet(id)
+    res.status(httpStatus.OK).send(result)
+}
+

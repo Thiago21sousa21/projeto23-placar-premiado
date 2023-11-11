@@ -95,6 +95,11 @@ export async function finishGame (theChange:FinalScore ){
     return changedGame
 }
 
+export async function getGameWithBet (id:number){
+    const result  = await gamesRepository.getGameWithBet(id)
+    return result
+}
+
 export async function getGames (){
     const result  = await gamesRepository.getGames()
     return result
