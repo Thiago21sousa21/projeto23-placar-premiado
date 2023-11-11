@@ -2,24 +2,8 @@ import prisma from 'database'
 import {NewGame, FinalScore} from '../protocols'
 
 export async function getGames (){
-//     - Retorna todos os jogos cadastrados.
-// - Saída: array de todos os jogos
-    
-//     ```tsx
-//     [
-//     	{
-//     		id: number;
-//     		createdAt: string;
-//     		updatedAt: string;
-//     		homeTeamName: string;
-//     		awayTeamName: string;
-//     		homeTeamScore: number;
-//     		awayTeamScore: number;
-//     		isFinished: boolean;
-//     	},
-//     	{...}
-//     ]
-//     ```
+    const result = await prisma.game.findMany({});
+    return result;
 }
 
 export async function createGame (newGame:NewGame){

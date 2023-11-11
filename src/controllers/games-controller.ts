@@ -17,3 +17,8 @@ export async function finishGame (req: Request, res: Response){
     res.status(httpStatus.OK).send(result)
 }
 
+export async function getGames (req: Request, res: Response){
+    const result = await gameServices.getGames()
+    res.status(httpStatus.OK).send(result)
+}
+

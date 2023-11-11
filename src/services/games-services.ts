@@ -95,4 +95,9 @@ export async function finishGame (theChange:FinalScore ){
     return changedGame
 }
 
+export async function getGames (){
+    const result  = await gamesRepository.getGames()
+    return result
+}
+
 export * as gameServices from './games-services'
