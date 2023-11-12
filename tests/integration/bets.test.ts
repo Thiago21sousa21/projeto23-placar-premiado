@@ -5,14 +5,14 @@ import { clearDb } from '../helpers';
 import {participantsRepository} from '../../src/repositories'
 import {gamesRepository} from '../../src/repositories'
 
-import {participantInput, gameInput, testBet} from '../factories'
+import {testParticipant, testGame, testBet} from '../factories'
 
 
 const api = supertest(app);
 
 describe('post /bets', ()=>{
 
-    beforeAll(async()=>{
+    beforeEach(async()=>{
         await clearDb()
     })
 
@@ -20,18 +20,12 @@ describe('post /bets', ()=>{
 
         it('the body is correct', async()=>{
 
-            //requisição assincrona de criar um participante
-            const testParticipant = await participantsRepository.createParticipant(participantInput())
-
-            //outra de criar um jogo
-            const testGame = await gamesRepository.createGame(gameInput())
-
-            //outra de criar uma aposta usando as informações dos primeiros
-            const bet = testBet(testParticipant, testGame)
+            const bet = await testBet();
            
             const result = await api.post('/bets').send(bet)
             
             expect(result.status).toBe(httpStatus.CREATED)
+
         })
     })
 })
