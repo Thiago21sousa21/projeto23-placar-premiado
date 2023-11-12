@@ -2,10 +2,14 @@ import supertest from 'supertest'
 import app from '../../src/app'
 import httpStatus from 'http-status';
 import { clearDb } from '../helpers';
-import {participantsRepository} from '../../src/repositories'
-import {gamesRepository} from '../../src/repositories'
-
-import {testParticipant, testGame, testBet} from '../factories'
+import 
+    {
+        testParticipant, 
+        testGame, 
+        testBet, 
+        testFinshedGame
+    } 
+from '../factories'
 
 
 const api = supertest(app);
@@ -25,6 +29,63 @@ describe('post /bets', ()=>{
             const result = await api.post('/bets').send(bet)
             
             expect(result.status).toBe(httpStatus.CREATED)
+
+        })
+    })
+
+    describe('should return 404', ()=>{
+
+        it('participant not Found', async()=>{
+
+            const lastParticipant = await testParticipant();
+            lastParticipant.id += 100;
+
+            const bet = await testBet(lastParticipant);
+           
+            const result = await api.post('/bets').send(bet)
+            
+            expect(result.status).toBe(httpStatus.NOT_FOUND)
+
+        })
+
+        it('game not Found', async()=>{
+
+            const lastGame = await testGame()
+            lastGame.id+= 100;
+
+            const bet = await testBet(undefined, lastGame);
+           
+            const result = await api.post('/bets').send(bet)
+            
+            expect(result.status).toBe(httpStatus.NOT_FOUND)
+
+        })
+    })
+
+    describe('should return 409, conflict', ()=>{
+
+        it("It shouldn't be possible to bet on a finished game", async()=>{
+            const finishedGame = await testFinshedGame()
+            const bet = await testBet(undefined, finishedGame);
+           
+            const result = await api.post('/bets').send(bet)
+            
+            expect(result.status).toBe(httpStatus.CONFLICT)
+
+        })
+    })
+
+    describe('should return 402, conflict', ()=>{
+
+        it("It shouldn't be possible to place a bet greater than your own balance", async()=>{
+            const participant = await testParticipant()
+            const bet = await testBet(participant);
+            
+            bet.amountBet=participant.balance +1;
+           
+            const result = await api.post('/bets').send(bet)
+            
+            expect(result.status).toBe(httpStatus.PAYMENT_REQUIRED)
 
         })
     })

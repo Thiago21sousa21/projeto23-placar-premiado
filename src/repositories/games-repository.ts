@@ -39,11 +39,7 @@ export async function getGameWithBet (id:number){
             id
         },
         include:{
-            bet:{
-                where:{
-                    gameId:id
-                }
-            }
+            bet:true
         }
     })
     return result;

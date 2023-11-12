@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker';
 import {gamesRepository} from "../../src/repositories"
 import { Game } from '@prisma/client';
+import { FinalScoreInput, FinalScore } from 'protocols';
 
 export function gameInput(){
     return {
@@ -9,17 +10,24 @@ export function gameInput(){
     }
 }
 
-export function finishGameInput(){
-    return {
-        homeTeamScore: faker.number.int({min:0, max:9}),
-        awayTeamScore: faker.number.int({min:0, max:9})
-    }
+export function finishGameInput(homeTeamScore?: number, awayTeamScore?:number){
+    if(!homeTeamScore)homeTeamScore=faker.number.int({min:0, max:9});
+    if(!awayTeamScore)awayTeamScore= faker.number.int({min:0, max:9});
+    return {homeTeamScore , awayTeamScore}
 }
 
-export async function testFinshGame(){
+export async function testFinshedGame(){    
+    const game = await gamesRepository.createGame(gameInput())
+    const finalScore:FinalScore = {...finishGameInput(), id: game.id}
+    const finishedGame = gamesRepository.finishGame(finalScore)
+    return finishedGame;
+} 
+
+export async function testFinshGame(finalScore?:FinalScoreInput){
+    if(!finalScore)finalScore= finishGameInput();
     return {
         game: await gamesRepository.createGame(gameInput()),
-        finalScore: finishGameInput()
+        finalScore
     }
 } 
 

@@ -1,5 +1,5 @@
 import { participantsRepository } from '../repositories'
-import {NewParticipant} from './../protocols/participants-protocols'
+import {NewParticipant} from '../protocols'
 
 
 export async function createParticipant (newParticpant: NewParticipant){

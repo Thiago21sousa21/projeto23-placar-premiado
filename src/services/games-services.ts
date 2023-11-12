@@ -79,11 +79,13 @@ export async function finishGame (theChange:FinalScore ){
     //verificar se o jogo realmente existe
     const game = await gamesRepository.getGameById(theChange.id)
     if(!game)throw errorsList.notFound('game')
-    //verifica se já esta finalizado
-if(game.isFinished) throw errorsList.toFinishFinishedGame()
 
-//altera o placar e finaliza
+    //verifica se já esta finalizado
+    if(game.isFinished) throw errorsList.toFinishFinishedGame()
+
+    //altera o placar e finaliza
     const changedGame  = await gamesRepository.finishGame(theChange)
+    
     //pegar todas as apostas que envolvem esse jogo
     const  allBets = await betsRepository.getBetAllBetsOfOneId(theChange.id)
 
