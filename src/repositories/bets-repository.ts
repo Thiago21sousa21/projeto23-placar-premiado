@@ -9,27 +9,27 @@ export async function creatBet (newBet:NewBet){
     return result
 }
 
-export async function getBetAllBetsOfOneId (gameId:number){
+// export async function getBetAllBetsOfOneId (gameId:number){
 
-    const result = await prisma.bet.findMany({
-        where:{
-            gameId
-        }
-    })
-    return result
-}
+//     const result = await prisma.bet.findMany({
+//         where:{
+//             gameId
+//         }
+//     })
+//     return result
+// }
 
-export async function updateStatusBet (betId:number, status:BetStatus){
-    const result = await prisma.bet.update({
-        where:{
-            id: betId
-        },
-        data:{
-            status
-        }
-    })
-    return result
-}
+// export async function updateStatusBet (betId:number, status:BetStatus){
+//     const result = await prisma.bet.update({
+//         where:{
+//             id: betId
+//         },
+//         data:{
+//             status
+//         }
+//     })
+//     return result
+// }
 
 export async function updateBetsAndBalances(betId:number, participantId:number, gain:number, status:BetStatus){
     const result = await 

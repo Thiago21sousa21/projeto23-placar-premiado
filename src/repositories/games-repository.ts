@@ -33,8 +33,6 @@ export async function finishGame (theChange: FinalScore){
 }
 
 export async function getGameWithBet (id:number){
-
-
     const result = await prisma.game.findUnique({
         where:{
             id
