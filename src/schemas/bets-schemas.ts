@@ -6,5 +6,5 @@ export const betSchema = Joi.object<NewBet>({
     homeTeamScore: Joi.number().integer().min(0).required(),
     gameId: Joi.number().integer().min(1).required(),
     participantId:  Joi.number().integer().min(1).required(),
-    amountBet: Joi.number().integer().min(0).required()
+    amountBet: Joi.number().integer().min(1).required()
 })
