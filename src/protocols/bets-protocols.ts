@@ -1,4 +1,4 @@
-import { Bet } from "@prisma/client"
+import { Bet, Participant } from "@prisma/client"
 
 
 export type Winner ={
@@ -20,3 +20,6 @@ export type WinnersAndLosts = {
 }
 
 export type NewBet = Pick<Bet, "amountBet" | "gameId" | "participantId" | "awayTeamScore" | "homeTeamScore">
+
+export type BetsAndParticipants = (Bet & {participant:Participant})[]
+export type Sums = { bets: number, winBets:number}

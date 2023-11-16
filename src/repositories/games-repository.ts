@@ -1,3 +1,4 @@
+import { Game } from '@prisma/client';
 import prisma from '../database'
 import {NewGame, FinalScore} from '../protocols'
 
@@ -42,6 +43,31 @@ export async function getGameWithBet (id:number){
             bet:true
         }
     })
+    return result;
+}
+
+
+export async function GetAllBettersThisGame({id, awayTeamScore, homeTeamScore}:Partial<Game>){
+
+    const result = await prisma.$transaction([
+        prisma.bet.findMany({
+            where:{gameId:id},
+            include:{participant:true}
+        }),
+        prisma.bet.aggregate({
+            where:{gameId:id},
+            _sum:{amountBet:true}
+        }),
+        prisma.bet.aggregate({
+            where:{
+                gameId:id,
+                awayTeamScore,
+                homeTeamScore
+            },
+            _sum:{amountBet:true}
+        }) 
+    ])
+
     return result;
 }
 

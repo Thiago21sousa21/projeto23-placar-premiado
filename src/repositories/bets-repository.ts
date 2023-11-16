@@ -31,3 +31,24 @@ export async function updateStatusBet (betId:number, status:BetStatus){
     return result
 }
 
+export async function updateBetsAndBalances(betId:number, participantId:number, gain:number, status:BetStatus){
+    const result = await 
+    prisma.$transaction([
+        prisma.bet.update({
+            where:{id:betId},
+            data:{
+                amountWon:gain,
+                status
+            }
+        }),
+        prisma.participant.update({
+            where:{id:participantId},
+            data:{
+                balance:{
+                    increment:gain
+                }
+            }
+        })
+    ])
+}
+

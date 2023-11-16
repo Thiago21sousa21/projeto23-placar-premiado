@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import httpStatus from 'http-status';
 import {NewGame, ParamsGameType, FinalScore, FinalScoreInput} from '../protocols'
 import {gameServices} from '../services'
+import prisma from '../database';
 
 export async function createGame (req: Request, res: Response){
     const newGame:NewGame  = req.body;
@@ -19,6 +20,7 @@ export async function finishGame (req: Request, res: Response){
 
 export async function getGames (req: Request, res: Response){
     const result = await gameServices.getGames()
+
     res.status(httpStatus.OK).send(result)
 }
 
