@@ -1,5 +1,5 @@
 import httpStatus from "http-status"
-import errorsList from "../utils/error-list"
+import errorsList from "../errors/error-list"
 import { NextFunction, Request, Response } from "express"
 import {PredictedError} from '../protocols/errors-protocols'
 

@@ -2,7 +2,7 @@ import { NewBet } from "../protocols";
 import {betsRepository} from '../repositories'
 import {gamesRepository} from '../repositories'
 import {participantsRepository} from '../repositories'
-import errorsList from "../utils/error-list";
+import errorsList from "../errors/error-list";
 
 export async function creatBet(newBet:NewBet){
     const {participantId, amountBet, gameId} = newBet;
