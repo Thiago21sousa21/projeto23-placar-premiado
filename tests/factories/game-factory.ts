@@ -25,10 +25,8 @@ export async function testFinshedGame(){
 
 export async function testFinshGame(finalScore?:FinalScoreInput){
     if(!finalScore)finalScore= finishGameInput();
-    return {
-        game: await gamesRepository.createGame(gameInput()),
-        finalScore
-    }
+    const game =  await gamesRepository.createGame(gameInput());
+    return {game, finalScore}
 } 
 
 export async function testGame(){
