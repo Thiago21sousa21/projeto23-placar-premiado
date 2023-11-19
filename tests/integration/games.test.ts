@@ -35,6 +35,19 @@ describe('post /games', ()=>{
             const result = await api.post('/games').send(newGame)
             
             expect(result.status).toBe(httpStatus.CREATED)
+
+            expect(result.body).toEqual(
+                expect.objectContaining({
+                    id: expect.any(Number),
+                    homeTeamName: expect.any(String),
+                    awayTeamName: expect.any(String),
+                    homeTeamScore: expect.any(Number),
+                    awayTeamScore: expect.any(Number),
+                    isFinished: expect.any(Boolean),
+                    createdAt: expect.any(String),
+                    updatedAt: expect.any(String)
+                })
+            )
         })
     })
 })
@@ -50,6 +63,19 @@ describe('post /games/:id/finish', ()=>{
             const result = await api.post(`/games/${game.game.id}/finish`).send(game.finalScore)
             
             expect(result.status).toBe(httpStatus.OK)
+
+            expect(result.body).toEqual(
+                expect.objectContaining({
+                    id: expect.any(Number),
+                    homeTeamName: expect.any(String),
+                    awayTeamName: expect.any(String),
+                    homeTeamScore: expect.any(Number),
+                    awayTeamScore: expect.any(Number),
+                    isFinished: expect.any(Boolean),
+                    createdAt: expect.any(String),
+                    updatedAt: expect.any(String)
+                })
+            )
         })
 
         it('the game should be finished and balances updates', async()=>{
@@ -63,9 +89,8 @@ describe('post /games/:id/finish', ()=>{
             const bet2 = await testBet(participant2, game.game, finishGameInput(0,0));
             const bet3 = await testBet(participant3, game.game, finishGameInput(0,0));
 
-            await api.post(`/games/${game.game.id}/finish`).send(game.finalScore)
-
-            const result = await api.get(`/games/${game.game.id}`)
+            const finishing = await api.post(`/games/${game.game.id}/finish`).send(game.finalScore)
+            const result = await api.get(`/games/${finishing.body.id}`)
             
             expect(result.status).toBe(httpStatus.OK)
         })
@@ -108,6 +133,19 @@ describe('get /games', ()=>{
             
             expect(result.status).toBe(httpStatus.OK)
             expect(result.body).toHaveLength(manyGames.amount)
+            expect(result.body).toEqual(expect.arrayContaining([
+                expect.objectContaining({
+                    id: expect.any(Number),
+                    homeTeamName: expect.any(String),
+                    awayTeamName: expect.any(String),
+                    homeTeamScore: expect.any(Number),
+                    awayTeamScore: expect.any(Number),
+                    isFinished: expect.any(Boolean),
+                    createdAt: expect.any(String),
+                    updatedAt: expect.any(String)
+                })
+            ]))
+            
         })
     })
 })

@@ -10,6 +10,7 @@ import
         testFinshedGame
     } 
 from '../factories'
+import { number } from 'joi';
 
 
 const api = supertest(app);
@@ -30,6 +31,18 @@ describe('post /bets', ()=>{
             
             expect(result.status).toBe(httpStatus.CREATED)
 
+            expect(result.body).toEqual(
+                expect.objectContaining({
+                    id: expect.any(Number),
+                    amountBet: expect.any(Number),
+                    gameId: expect.any(Number),
+                    participantId: expect.any(Number),
+                    awayTeamScore: expect.any(Number),
+                    homeTeamScore: expect.any(Number),
+                    createdAt: expect.any(String),
+                    updatedAt: expect.any(String)
+                })
+            )
         })
     })
 
