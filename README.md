@@ -2,21 +2,10 @@
   API de uma aplicação de gerenciamento de apostas feita em typescript. Nela você pode criar um participante com saldo inicial, criar jogos, apostar neles, encerrar os jogos.
   Os saldos dos participantes são atualizados e os status das apostas também quando um jogo é finalizado. Também é possivel conferir todas as apostas em um jogo, a lista de participantes e a lista com todos os jogos!
 
-# Como rodar
-  - Instalar as dependencias:
-    `npm install`
-  - Criar banco de dados
-  - criar arquivo .env seguindo modelo do .env.example
-  - `npx prisma migrate deploy`
-  - npm run dev
 
-# Como rodar testes
-  - criar arquivo .env.test seguindo modelo do .env.example
-  - `npm run test:migration:run `
-  - `npm run test:coverage`   
 
-# link do deploy:
-`https://placar-premiado-api.onrender.com`
+[# link do deploy](https://placar-premiado-api.onrender.com)
+
 
 # Rotas:
 - **POST** `/participants`
@@ -38,9 +27,27 @@
     - Retorna todos os jogos cadastrados.
         
 - **GET** `/games/:id`
-  - Retorna os dados de um jogo junto com as apostas atreladas a ele.
 
-# Tecnologias usadas
+  # Tecnologias usadas
   - Prisma ORM para gerenciar o banco de dados PosgreSQL
   - Typescript para desenvolvimento
   - Jest e Supertest para testes
+  - Express
+  - Prisma
+  - Postgres
+  - Joi
+
+# Como rodar
+  - Instalar as dependencias:
+    `npm install`
+  - Criar banco de dados
+  - criar arquivo .env seguindo modelo do .env.example
+  - `npx prisma migrate deploy`
+  - npm run dev
+  - Retorna os dados de um jogo junto com as apostas atreladas a ele.
+
+# Como rodar testes
+  - criar arquivo .env.test seguindo modelo do .env.example
+  - `npm run test:migration:run `
+  - `npm run test:coverage`   
+
